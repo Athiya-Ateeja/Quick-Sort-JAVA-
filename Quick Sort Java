@@ -18,55 +18,53 @@
 
 public class Solution {
 	
-						public static void quickSort(int[] a, int si, int ei) {
-							// your code goes here
-
-														if(si>=ei){
-														return;
-													}
-
-						int pivotInx=partition(a,si,ei);
-						quickSort(a,si,pivotInx-1);
-						quickSort(a,pivotInx+1,ei);
-						
-					}
+						static void quickSort(int[] arr, int low, int high)
+    {
+        if (low < high) {
+  
+            // pi is partitioning index, arr[p]
+            // is now at right place
+            int pi = partition(arr, low, high);
+  
+            // Separately sort elements before
+            // partition and after partition
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
 	
-	public static int partition(int a[],int si,int ei){
-		int pivotElement=a[si];
-		int smallNumCount=0;
-
-						for(int i=si+1;i<=ei;i++){
-
-											if(a[i]<=pivotElement){
-												smallNumCount++;
-											}
-						}
-
-						int temp=a[si+smallNumCount];
-						a[si+smallNumCount]=pivotElement;
-						a[si]=temp;
-
-						int i=si;
-						int  j=ei;
-						
-										while(i<j){
-											if(a[i] < pivotElement){
-												i++;
-											}else if(a[j]>=pivotElement){
-												j--;
-											}else{
-												temp=a[i];
-												a[i]=a[j];
-												a[j]=temp;
-												i++;
-												j--;
-											}
-										}
-
-						
-						
-						return si+smallNumCount;
-		}
+	static int partition(int[] arr, int low, int high)
+    {
+  
+        // pivot
+        int pivot = arr[high];
+  
+        // Index of smaller element and
+        // indicates the right position
+        // of pivot found so far
+        int i = (low - 1);
+  
+        for (int j = low; j <= high - 1; j++) {
+  
+            // If current element is smaller
+            // than the pivot
+            if (arr[j] < pivot) {
+  
+                // Increment index of
+                // smaller element
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, high);
+        return (i + 1);
+    }
+	static void swap(int[] arr, int i, int j)
+    {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
 	public static void quickSort(int[] a) {
 		/* Your class should be named Solution
 		 * Don't write main().
